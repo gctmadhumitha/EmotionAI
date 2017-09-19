@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emotion Capture Affectiva</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+  <script src="./js/bootstrap.min.js"></script>
+ <script src="https://download.affectiva.com/js/3.2/affdex.js" type="text/javascript"> </script>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10" id="affdex_elements" style="width:680px;height:480px;">
+        <canvas id="image_canvas"></canvas>
+      </div>
+      <div class="col-md-4">
+        <div style="height:25em;">
+          <strong>EMOTION TRACKING RESULTS</strong>
+          <div id="results" style="word-wrap:break-word;"></div>
+        </div>
+        <div>
+          <strong>DETECTOR LOG MSGS</strong>
+        </div>
+        <div id="logs"></div>
+      </div>
+    </div>
+    <div>
+      <input id="upload_button" type="file" accept="image/*" onchange="loadFile(event)">
+      <h3>Affectiva JS SDK PhotoDetector to track different emotions.</h3>
+      <p>
+        <strong>Instructions</strong>
+        </br>
+        Once the detector is initialized, the "choose file" button will be visible. Choose file to upload a file.
+        <br/> When a face is detected, the probabilities of the different emotions are written to the DOM.
+        <br/>
+      </p>
+    </div>
+  </div>
+  <script src="./js/photo.js"></script>
+</body>
+</html>
