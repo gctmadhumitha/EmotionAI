@@ -8,12 +8,12 @@ var camera = new RaspiCam({
 	timeout: 0 // take the picture immediately
 });
 
-var camera1 = new RaspiCam({
-	mode: "video",
-	output: "./video/video.h264",
-	framerate: 15,
-	timeout: 5000 // take a 5 second video
-});
+// var camera1 = new RaspiCam({
+// 	mode: "video",
+// 	output: "./video/video.h264",
+// 	framerate: 15,
+// 	timeout: 5000 // take a 5 second video
+// });
 
 
 camera.on("start", function( err, timestamp ){
@@ -29,3 +29,8 @@ camera.on("exit", function( timestamp ){
 });
 
 camera.start();
+console.log("about to wait...");
+setTimeout(function() {
+	console.log("done waiting");
+	camera.stop();
+}, 10000);
