@@ -5,7 +5,7 @@ var camera = new RaspiCam({
 	mode: "photo",
 	output: "./photo/image.jpg",
 	encoding: "jpg",
-	timeout: 0 // take the picture immediately
+	timeout: 100 // take the picture immediately
 });
 
 // var camera1 = new RaspiCam({
@@ -33,4 +33,4 @@ console.log("about to wait...");
 setTimeout(function() {
 	console.log("done waiting");
 	camera.stop();
-}, 10000);
+}, 20000);
