@@ -52,4 +52,4 @@ console.log("about to wait...");
 setTimeout(function() {
   console.log("done waiting");
   camera.stop();
-}, 20000);
+}, 5000);

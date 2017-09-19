@@ -43,6 +43,22 @@
   <h1 class="text-center">My Aquarium
     <small>Powered by PI</small>
   </h1>
+
+  <canvas id="videoCanvas" width="320" height="240" style="width:320px; height:240px; background-color:black;">
+</canvas>
+<script src="jsmpg.js"></script>
+<script type="text/javascript">
+var canvas = document.getElementById('videoCanvas');
+var ctx = canvas.getContext('2d');
+ctx.fillStyle = '#444';
+ctx.fillText('Loading...', canvas.width/2-30, canvas.height/3);
+ 
+// Setup the WebSocket connection and start the player
+//var socketPort = YourWebcamStreamPortHere;
+var url = 'ws://'+ document.location.hostname +':8082/';
+var client = new WebSocket( url);
+var player = new jsmpeg(client, {canvas:canvas});
+</script>
  
   <hr>
  
