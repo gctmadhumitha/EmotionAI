@@ -69,13 +69,13 @@ function loadFile(event) {
   console.log("loading File");
   $('#results').html("");
   var img = new Image();
-  var file = new File("/photo/image.jpg");
+  //var file = new File("/photo/image.jpg");
   var reader = new FileReader();
   reader.onload = function() {
     img.onload = imageLoaded;
     img.src = reader.result;
   };
-  reader.readAsArrayBuffer(file);
+  reader.readAsDataURL(event.target.files[0]);
 };
 
 //Load the selected image
