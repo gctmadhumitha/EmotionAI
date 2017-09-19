@@ -17,15 +17,15 @@ app.get('/index', function(req, res) {
 });
 
 
-var RaspiCam = require("raspicam");
+// var RaspiCam = require("raspicam");
 
 
-var camera = new RaspiCam({
-  mode: "photo",
-  output: "./photo/image.jpg",
-  encoding: "jpg",
-  timeout: 100 // take the picture immediately
-});
+// var camera = new RaspiCam({
+//   mode: "photo",
+//   output: "./photo/image.jpg",
+//   encoding: "jpg",
+//   timeout: 100 // take the picture immediately
+// });
 
 // var camera1 = new RaspiCam({
 //  mode: "video",
@@ -35,9 +35,10 @@ var camera = new RaspiCam({
 // });
 
 
-camera.on("start", function( err, timestamp ){
-  console.log("photo started at " + timestamp );
-});
+// camera.on("start", function( err, timestamp ){
+//   console.log("photo started at " + timestamp );
+// });
+/*!
 
 camera.on("read", function( err, timestamp, filename ){
   console.log("photo image captured with filename: " + filename );
