@@ -1,0 +1,119 @@
+Skip to content
+ 
+Search…
+All gists
+GitHub
+New gist
+@intuitiattest 
+  Star 0
+  Fork 1 @ahaminoahamino/jssdk_sample_camera_detector.html
+Last active 28 days ago • 
+Report gist
+Embed  
+<script src="https://gist.github.com/ahamino/638e59b587c1c9b68b87fe552dd19654.js"></script>
+  Download ZIP
+ Code  Revisions 8  Forks 1
+This page is an example of how to use Affdex JS SDK CameraDetector to track different emotions.
+Raw
+ jssdk_sample_camera_detector.html
+<html>
+  <head>
+    <!-- AFFDEX SDK BETA URL-->
+    <script src="https://download.affectiva.com/js/nightly/affdex.js"></script>
+  </head>
+  <body>
+    <div>
+      This page is an example of how to use Affdex JS SDK CameraDetector to track different emotions.
+      Press the start button to start the detector.
+      When a face is detected, the value for joy is written to the DOM.
+      Press the stop button to end the detector.
+    </div>
+    <div id="affdex_elements"> </div>
+    <script>
+      // SDK Needs to create video and canvas nodes in the DOM in order to function
+      // Here we are adding those nodes a predefined div.
+      var divRoot = document.getElementById("affdex_elements");
+      var width = 640;
+      var height = 480;
+      var processFPS = 5;
+      //Construct a CameraDetector and specify the image width / height and processing framerate.
+      var detector = new affdex.CameraDetector(divRoot, width, height, processFPS);
+      //Enable detection of all Expressions, Emotions and Emojis classifiers.
+      detector.detectAllEmotions();
+      detector.detectAllExpressions();
+      detector.detectAllEmojis();
+      detector.detectAllAppearance();
+      //Add a callback to notify when the detector is initialized and ready for runing.
+      detector.addEventListener("onInitializeSuccess", function() {
+        console.log("the Detector reports initialized");
+      });
+      //function executes when Start button is pushed.
+      function onStart() {
+        console.log("starting function");
+        if (detector && !detector.isRunning) {
+          detector.start();
+        }
+      }
+      //function executes when the Stop button is pushed.
+      function onStop() {
+        if(detector && detector.isRunning) {
+          detector.stop();
+          resultsDiv = document.getElementById("results");
+          resultsDiv.innerHTML = "";
+        }
+      };
+      //function executes when the Reset button is pushed.
+      function onReset() {
+        if(detector && detector.isRunning) {
+          detector.reset();
+          resultsDiv = document.getElementById("results");
+          resultsDiv.innerHTML = "";
+        }
+      };
+      //Add a callback to notify when camera access is allowed
+      detector.addEventListener("onWebcamConnectSuccess", function() {
+        console.log("Webcam allowed");
+      });
+      //Add a callback to notify when camera access is denied
+      detector.addEventListener("onWebcamConnectFailure", function() {
+        console.log("Webcam denied");
+      });
+      //Add a callback to receive the results from processing an image.
+      //The faces object contains the list of the faces detected in an image.
+      //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
+      detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
+        resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "timestamp: "+timestamp.toFixed(2)+" No faces: "+faces.length+"<br />";
+        if (faces.length > 0) { // if a face was found
+          resultsDiv.innerHTML = resultsDiv.innerHTML + "Gender: " + JSON.stringify(faces[0].appearance);
+          resultsDiv.innerHTML = resultsDiv.innerHTML + "Dominant Emoji: " + faces[0].emojis.dominantEmoji;
+        }
+      });
+    </script>
+    <button id="start" onclick="onStart()">Start</button>
+    <button id="stop" onclick="onStop()">Stop</button>
+    <button id="reset" onclick="onReset()">Reset</button>
+    <div id="results"></div>
+  </body>
+</html>
+ @intuitiattest
+  
+            
+ 
+Write  Preview
+
+Leave a comment
+Attach files by dragging & dropping,  Choose Filesselecting them, or pasting from the clipboard.  Styling with Markdown is supported
+Comment
+© 2017 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
