@@ -3,7 +3,7 @@
 description "Webcam streaming server using jsmpeg and node.js"
 author      "MyContraption.com"
  
-start on (local-filesystems and net-device-up IFACE!=eth0)
+start on local-filesystems and net-device-up IFACE!=eth0
 stop on shutdown
  
 script
