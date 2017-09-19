@@ -38,19 +38,18 @@ app.get('/index', function(req, res) {
 // camera.on("start", function( err, timestamp ){
 //   console.log("photo started at " + timestamp );
 // });
-/*!
 
-camera.on("read", function( err, timestamp, filename ){
-  console.log("photo image captured with filename: " + filename );
-});
+// camera.on("read", function( err, timestamp, filename ){
+//   console.log("photo image captured with filename: " + filename );
+// });
 
-camera.on("exit", function( timestamp ){
-  console.log("photo child process has exited at " + timestamp );
-});
+// camera.on("exit", function( timestamp ){
+//   console.log("photo child process has exited at " + timestamp );
+// });
 
-camera.start();
-console.log("about to wait...");
-setTimeout(function() {
-  console.log("done waiting");
-  camera.stop();
-}, 5000);
+// camera.start();
+// console.log("about to wait...");
+// setTimeout(function() {
+//   console.log("done waiting");
+//   camera.stop();
+// }, 5000);
