@@ -56,7 +56,9 @@
 
  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8" id="affdex_elements" style="width:680px;height:480px;"></div>
+      <div class="col-md-10" id="affdex_elements" style="width:680px;height:480px;">
+        <canvas id="image_canvas"></canvas>
+      </div>
       <div class="col-md-4">
         <div style="height:25em;">
           <strong>EMOTION TRACKING RESULTS</strong>
@@ -69,20 +71,18 @@
       </div>
     </div>
     <div>
-      <button id="start" onclick="onStart()">Start</button>
-      <button id="stop" onclick="onStop()">Stop</button>
-      <button id="reset" onclick="onReset()">Reset</button>
-      <h3>Affectiva JS SDK CameraDetector to track different emotions.</h3>
+      <input id="upload_button" type="file" accept="image/*" onchange="loadFile(event)">
+      <h3>Affectiva JS SDK PhotoDetector to track different emotions.</h3>
       <p>
         <strong>Instructions</strong>
         </br>
-        Press the start button to start the detector.
+        Once the detector is initialized, the "choose file" button will be visible. Choose file to upload a file.
         <br/> When a face is detected, the probabilities of the different emotions are written to the DOM.
-        <br/> Press the stop button to end the detector.
+        <br/>
       </p>
     </div>
   </div>
-   <script src="./js/photo.js"></script>
+  <script src="./js/photo.js"></script>
 
 <!-- End of Photo --> 
 
@@ -118,7 +118,7 @@
   </div>
    <script src="./js/video.js"></script>
 
-<!-- End of Video --> 
+<!-- End of Photo --> 
 
 
 </body>
