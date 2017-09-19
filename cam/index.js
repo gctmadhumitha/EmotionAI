@@ -47,6 +47,7 @@ function startStreaming(io) {
         console.log("watchingFile if...");
         var t = (Math.random() * 100000);
         var imageName = 'image_stream.jpg?_t=' + t;
+        console.log("image name is " + imageName);
         io.sockets.emit('liveStream', imageName);
         return;
     }
