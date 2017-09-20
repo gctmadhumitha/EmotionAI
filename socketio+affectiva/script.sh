@@ -8,7 +8,7 @@ stop on shutdown
  
 script
     exec ffmpeg -s 320x240 -f video4linux2 -i /dev/video0 \
- -f mpeg1video -b 400k -r 30 http://localhost:8082/SecretCodeGoesHere/320/240
+ -f mpeg1video -b 400k -r 30 http://localhost:8082/secret/320/240
 end script
  
 pre-start script
