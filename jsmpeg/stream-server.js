@@ -8,8 +8,8 @@ if( process.argv.length < 2 ) {
 }
 
 var STREAM_SECRET = process.argv[2] || 'secret',
-	STREAM_PORT = process.argv[3] || 8082,
-	WEBSOCKET_PORT = process.argv[4] || 8084,
+	STREAM_PORT = process.argv[3] || 8082, //ffmpeg running 
+	WEBSOCKET_PORT = process.argv[4] || 8084,  // 
 	STREAM_MAGIC_BYTES = 'jsmp'; // Must be 4 bytes
 
 var width = 320,
@@ -18,6 +18,7 @@ var width = 320,
 // Websocket Server
 var socketServer = new (require('ws').Server)({port: WEBSOCKET_PORT});
 socketServer.on('connection', function(socket) {
+    console.log("on connection");
 	// Send magic bytes and video size to the newly connected socket
 	// struct { char magic[4]; unsigned short width, height;}
 	var streamHeader = new Buffer(8);
@@ -34,6 +35,7 @@ socketServer.on('connection', function(socket) {
 });
 
 socketServer.broadcast = function(data, opts) {
+	console.log("on broadcast");
 	for( var i in this.clients ) {
 		if (this.clients[i].readyState == 1) {
 			this.clients[i].send(data, opts);
@@ -47,6 +49,7 @@ socketServer.broadcast = function(data, opts) {
 
 // HTTP Server to accept incomming MPEG Stream
 var streamServer = require('http').createServer( function(request, response) {
+	console.log("on createServer");
 	var params = request.url.substr(1).split('/');
 
 	if( params[0] == STREAM_SECRET ) {
@@ -58,6 +61,7 @@ var streamServer = require('http').createServer( function(request, response) {
 			':' + request.socket.remotePort + ' size: ' + width + 'x' + height
 		);
 		request.on('data', function(data){
+			console.log("on data");
 			socketServer.broadcast(data, {binary:true});
 		});
 	}
