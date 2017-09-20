@@ -33,6 +33,7 @@
 
       //function executes when Start button is pushed.
       function onStart() {
+        console.log("start clicked");
         if (detector && !detector.isRunning) {
           $("#logs").html("");
           detector.start();
@@ -44,6 +45,7 @@
 
       //function executes when the Stop button is pushed.
       function onStop() {
+        console.log("stop clicked");
         log('#logs', "Clicked the stop button");
         if (detector && detector.isRunning) {
           detector.removeEventListener();
