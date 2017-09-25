@@ -27,6 +27,7 @@
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
+    //$('#stream').attr('src', url);
     $('#face_video').attr('src', url);
     $('.start').hide();
   });
@@ -57,7 +58,7 @@
  
   <div class="row" id="affdex_elements">
     <img src="" id="stream">
-     <video id="face_video" autoplay="" src="blob:http://localhost:3000/ecdf8069-6a0f-4d30-b0f4-132cf4f8ad8a" style="display: none;"></video><canvas id="face_video_canvas" width="640" height="480" style="display: block;"></canvas>
+     <video id="face_video" autoplay="" src="blob:http://localhost:3000/ecdf8069-6a0f-4d30-b0f4-132cf4f8ad8a" ></video><canvas id="face_video_canvas" width="640" height="480" style="display: block;"></canvas>
 
   </div>
 
