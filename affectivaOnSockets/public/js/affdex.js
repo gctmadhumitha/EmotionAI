@@ -251,7 +251,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
     self.videoElement = document.createElement("video");
     self.videoElement.id = "face_video";
     self.videoElement.autoplay = true;
-    docElement.appendChild(self.videoElement);
+   // docElement.appendChild(self.videoElement);
     startTimeStamp = (new Date()).getTime() / 1000;
     canvasElement = document.createElement("canvas");
     canvasElement.id = "face_video_canvas";
