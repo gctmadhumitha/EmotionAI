@@ -32,15 +32,14 @@
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
-    //$('#stream').attr('src', url);
-    $('.face_video_video').attr('src', url);
-    $('#face_video').attr('src', url);
+    $('#stream').attr('src', url);
     $('.start').hide();
   });
  
   function startStream() {
     socket.emit('start-stream');
     $('.start').hide();
+    onStart()
   }
   </script>
 
@@ -57,9 +56,8 @@
   <button type="button" id="" class="btn btn-info start" onclick="startStream()">Start Camera</button>
  
   <div class="row" id="affdex_elements">
-    <img src="" id="face_video">
-     <video class="face_video_video" autoplay="" src="" ></video>
-     <video id="face_video" autoplay="" src="" ></video><canvas id="face_video_canvas" width="640" height="480" style="display: block;"></canvas>
+    <img src="" id="stream">
+   
 
   </div>
 

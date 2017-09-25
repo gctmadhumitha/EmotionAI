@@ -248,10 +248,11 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   self.faceDetectorMode = (typeof faceMode == 'undefined') ? affdex.FaceDetectorMode.LARGE_FACES : faceMode;
 
   var ctor = function() {
+    self.imageElement = document.getElementById("stream");
     self.videoElement = document.createElement("video");
     self.videoElement.id = "face_video";
     self.videoElement.autoplay = true;
-   // docElement.appendChild(self.videoElement);
+    //docElement.appendChild(self.videoElement);
     startTimeStamp = (new Date()).getTime() / 1000;
     canvasElement = document.createElement("canvas");
     canvasElement.id = "face_video_canvas";
@@ -277,7 +278,8 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   var captureImage = function() {
     if (self.isWorkerInitialized && canvasElement) {
       canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      canvasContext.drawImage(self.videoElement, 0, 0, width, height);
+      //canvasContext.drawImage(self.videoElement, 0, 0, width, height);
+      canvasContext.drawImage(self.imageElement, 0, 0, width, height);
       var imgData = canvasContext.getImageData(0, 0, canvasElement.width, canvasElement.height);
       var currentTimeStamp = (new Date()).getTime() / 1000;
       process(imgData, currentTimeStamp - startTimeStamp);
