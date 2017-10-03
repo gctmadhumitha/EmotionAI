@@ -15,7 +15,7 @@ var detector = new affdex.FrameDetector(faceMode);
         //Display canvas instead of video feed because we want to draw the feature points on it
         $("#face_video_canvas").css("display", "block");
         $("#face_video").css("display", "none");
-        process();
+        captureImage();
       });
 
       detector.addEventListener("onInitializeFailure", function() {
@@ -84,11 +84,14 @@ detector.detectAllAppearance();
   }
 
 
-function process(){
-	console.log("process");
+function captureImage(){
+	console.log("captureImage");
 	//Get a canvas element from DOM
 	var aCanvas = document.getElementById("canvas");
 	var context = aCanvas.getContext('2d');
+
+	var img = document.getElementById("stream");
+    context.drawImage(img, 0, 0);
 
 	//Cache the timestamp of the first frame processed
 	var startTimestamp = (new Date()).getTime() / 1000;
