@@ -11,14 +11,16 @@ var detector = new affdex.FrameDetector(faceMode);
 //Add a callback to notify when the detector is initialized and ready for runing.
       detector.addEventListener("onInitializeSuccess", function() {
         log('#logs', "The detector reports initialized");
+        console.log("onInitializeSuccess");
         //Display canvas instead of video feed because we want to draw the feature points on it
         $("#face_video_canvas").css("display", "block");
         $("#face_video").css("display", "none");
+        process();
       });
 
       detector.addEventListener("onInitializeFailure", function() {
         log('#logs', "The detector reports initialization failed");
-       
+        console.log("onInitializeFailure");
       });
 
 /* 
@@ -74,7 +76,7 @@ detector.detectAllAppearance();
       $("#logs").html("");
       detector.start();
       console.log("detected started");
-      process()
+      //
     }else{
       $("#logs").html("Detector running");
     }
