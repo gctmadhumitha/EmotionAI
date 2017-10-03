@@ -29,9 +29,13 @@
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
-    console.log("liveStream");
+    console.log("liveStream connected");
     $('#stream').attr('src', url);
     $('.start').hide();
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("stream");
+    ctx.drawImage(img, 10, 10);
   });
  
   function startStream() {
