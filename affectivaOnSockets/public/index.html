@@ -32,10 +32,10 @@
     console.log("liveStream connected");
     $('#stream').attr('src', url);
     $('.start').hide();
-    var c = document.getElementById("canvas");
-    var ctx = c.getContext("2d");
-    var img = document.getElementById("stream");
-    ctx.drawImage(img, 10, 10);
+    // var c = document.getElementById("canvas");
+    // var ctx = c.getContext("2d");
+    // var img = document.getElementById("stream");
+    // ctx.drawImage(img, 10, 10);
   });
  
   function startStream() {
@@ -139,7 +139,7 @@
   c.width = width;
   c.height = height;  
 
-  startStream()
+  
   // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||  
   //   navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
