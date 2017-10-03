@@ -140,6 +140,10 @@ function captureImage(){
           }));
           log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
           //drawFeaturePoints(image, faces[0].featurePoints);
+
+         	var c = document.getElementById("resultCanvas");
+			var ctx = c.getContext("2d");	
+			ctx.putImageData(image, 10, 70);
         }
       });
 
