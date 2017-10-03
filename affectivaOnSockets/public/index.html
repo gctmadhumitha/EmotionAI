@@ -23,10 +23,9 @@
   <!-- Bootstrap JavaScript -->
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="https://download.affectiva.com/js/3.2/affdex.js"/></script>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
- <script src="./js/frame.js"></script> 
+ 
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
@@ -47,6 +46,63 @@
   </script>
 
 
+<script src="https://download.affectiva.com/js/3.1/affdex.js"></script>
+  <script>
+    var width = 640;
+    var height = 480;
+
+    var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
+    var detector = new affdex.FrameDetector(faceMode);
+
+  detector.addEventListener("onInitializeSuccess", function() {
+    console.log('Detector reports initialized.');
+
+    // Start with first capture...
+    captureImage();
+  });
+
+  detector.addEventListener("onImageResultsSuccess", function (faces, image, timestamp) {
+    console.log( faces );
+    captureImage();
+  });
+
+  detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {
+    console.log( err_detail );
+    captureImage();
+  });
+
+  detector.detectAllExpressions();
+  detector.detectAllEmotions();
+  detector.detectAllEmojis();
+  detector.detectAllAppearance();
+
+  detector.start();
+
+  var v = document.getElementById('stream');
+  var c = document.getElementById('canvas');
+  var t = c.getContext('2d');
+  c.width = width;
+  c.height = height;  
+
+  // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||  
+  //   navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+  // if (navigator.getUserMedia) {       
+  //     navigator.getUserMedia({video: true}, handleVideo, videoError);
+  // }
+  // function handleVideo(stream) { v.src = window.URL.createObjectURL(stream); }
+  // function videoError(e) { console.log( e ); }
+
+  function captureImage() {
+    console.log('Capturing...');
+    t.clearRect( 0, 0, c.width, c.height );
+    t.drawImage( v, 0, 0, width, height );
+    var imgData = t.getImageData(0, 0, c.width, c.height);
+    var currentTimeStamp = ( new Date() ).getTime() / 1000;
+    detector.process( imgData, currentTimeStamp );
+  }
+</script>
+
 </head>
  
 <body class="container">
@@ -64,7 +120,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8" id="affdex_elements" style="width:680px;height:480px;">
-        <img src="" id="stream">
+        <video src="" id="stream">
         <canvas id="canvas" width="640" height="480" style="border:1px solid #d3d3d3;">
       </div>
       <div class="col-md-4">
