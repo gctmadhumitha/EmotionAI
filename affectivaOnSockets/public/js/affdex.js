@@ -347,7 +347,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
       var url = affdex.getAffdexDotJsLocation() + adapterJSVersion;
       require(docElement, url, function() {
         //self._startCamera();
-        self._onWebcamReady();
+        self.onWebcamReady();
       },
       function() {
         self.getCallback("onInitialize", false)("Unable to load adaptor.js to load the camera");
