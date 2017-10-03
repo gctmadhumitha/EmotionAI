@@ -28,7 +28,10 @@ detector.addEventListener("onInitializeFailure", function() {});
   - timestamp: An imageData object contain the pixel values for the processed frame.
   - err_detail: A string contains the encountered exception.
 */
-detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {});
+detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {
+
+	console.log("onImageResultsFailure");
+});
 
 detector.addEventListener("onResetSuccess", function() {});
 detector.addEventListener("onResetFailure", function() {});
