@@ -58,15 +58,15 @@ function startStreaming(io) {
     return;
   }
  
-  var args = ["-w", "640", "-h", "480", "-o", "./stream/image_stream.jpg", "-t", "999999999", "-tl", "100"];
-  proc = spawn('raspistill', args);
+  // var args = ["-w", "640", "-h", "480", "-o", "./stream/image_stream.jpg", "-t", "999999999", "-tl", "100"];
+  // proc = spawn('raspistill', args);
  
-  console.log('Watching for changes...');
+  // console.log('Watching for changes...');
  
-  app.set('watchingFile', true);
+  // app.set('watchingFile', true);
  
-  fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
-    io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
-  })
+  // fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+  //   io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+  // })
  
 }
