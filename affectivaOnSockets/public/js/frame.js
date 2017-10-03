@@ -52,9 +52,11 @@ detector.detectAllAppearance();
 
  //function executes when Start button is pushed.
   function startDetector() {
+  	console.log("startDetector");
     if (detector && !detector.isRunning) {
       $("#logs").html("");
       detector.start();
+      console.log("detected started");
       process()
     }else{
       $("#logs").html("Detector running");
@@ -64,6 +66,7 @@ detector.detectAllAppearance();
 
 
 function process(){
+	console.log("process");
 	//Get a canvas element from DOM
 	var aCanvas = document.getElementById("canvas");
 	var context = aCanvas.getContext('2d');
