@@ -12,10 +12,9 @@
  
   <style type="text/css">
   #stream {
-    height: 99%;
-    margin: 0px auto;
+    height: 50%;
+    margin: 50px;
     display: block;
-    margin-top: 20px;
   }
   </style>
  
@@ -38,7 +37,11 @@
   function startStream() {
     socket.emit('start-stream');
     $('.start').hide();
-   // onStart()
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("scream");
+    ctx.drawImage(img, 10, 10);
+    startDetector();
   }
 
   </script>
@@ -57,11 +60,12 @@
  
 
 
-<!--
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8" id="affdex_elements" style="width:680px;height:480px;">
         <img src="" id="stream">
+        <canvas id="canvas" width="340" height="240" style="border:1px solid #d3d3d3;">
       </div>
       <div class="col-md-4">
         <div style="height:25em;">
@@ -74,7 +78,7 @@
         <div id="logs"></div>
       </div>
     </div>
-    <div>
+   <!--  <div>
       <button id="start" onclick="onStart()">Start</button>
       <button id="stop" onclick="onStop()">Stop</button>
       <button id="reset" onclick="onReset()">Reset</button>
@@ -86,9 +90,9 @@
         <br/> When a face is detected, the probabilities of the different emotions are written to the DOM.
         <br/> Press the stop button to end the detector.
       </p>
-    </div>
+    </div> -->
   </div>
-   <script src="./js/frame.js"></script> -->
+   <script src="./js/frame.js"></script> 
 
 
 

@@ -51,7 +51,7 @@ detector.detectAllEmojis();
 detector.detectAllAppearance();
 
  //function executes when Start button is pushed.
-  function onStart() {
+  function startDetector() {
     if (detector && !detector.isRunning) {
       $("#logs").html("");
       detector.start();
@@ -105,7 +105,7 @@ function process(){
         }
       });
 
-      function onStop() {
+      function stopDetector() {
         console.log("Clicked the stop button");
         if (detector && detector.isRunning) {
           detector.removeEventListener();
@@ -114,7 +114,7 @@ function process(){
       };
 
       //function executes when the Reset button is pushed.
-      function onReset() {
+      function resetDetector() {
         console.log("Clicked the reset button");
         if (detector && detector.isRunning) {
           detector.reset();
