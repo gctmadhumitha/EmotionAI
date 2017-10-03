@@ -46,6 +46,10 @@ detector.addEventListener("onImageResultsFailure", function (image, timestamp, e
 	console.log("onImageResultsFailure");
 	console.log("timestamp is "+ timestamp);
 	console.log("err_detail " + err_detail);
+
+	var c = document.getElementById("resultCanvas");
+	var ctx = c.getContext("2d");	
+	ctx.putImageData(image, 10, 70);
 });
 
 detector.addEventListener("onResetSuccess", function() {});
