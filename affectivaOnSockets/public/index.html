@@ -52,19 +52,14 @@
 </head>
  
 <body class="container">
-  <h1 class="text-center">My Aquarium
-    <small>Powered by PI</small>
-  </h1>
- 
-  <hr>
- 
   <button type="button" id="" class="btn btn-info start" onclick="startStream()">Start Camera</button>
- 
   <div class="row">
     <img  src="" id="stream"></img>
   </div>
   <div class="row">
-      <div class="col-md-8" id="affdex_elements" style="width:680px;height:480px;"></div>
+      <div class="col-md-4">
+        <canvas id ="resultCanvas"></canvas> 
+      </div>
       <div class="col-md-4">
         <div style="height:25em;">
           <strong>RESULTS</strong>
@@ -76,8 +71,7 @@
         <div id="logs"></div>
       </div>
     </div>
-
- <canvas id ="resultCanvas"></canvas> 
+ 
 </body>
  
 </html>
