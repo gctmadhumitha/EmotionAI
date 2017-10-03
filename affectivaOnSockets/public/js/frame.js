@@ -133,7 +133,7 @@ function captureImage(){
             return val.toFixed ? Number(val.toFixed(0)) : val;
           }));
           log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
-          drawFeaturePoints(image, faces[0].featurePoints);
+          //drawFeaturePoints(image, faces[0].featurePoints);
         }
       });
 
@@ -157,6 +157,24 @@ function captureImage(){
 
        function log(node_name, msg) {
         $(node_name).append("<span>" + msg + "</span><br />")
+      }
+
+       //Draw the detected facial feature points on the image
+      function drawFeaturePoints(img, featurePoints) {
+        var contxt = $('#face_video_canvas')[0].getContext('2d');
+
+        var hRatio = contxt.canvas.width / img.width;
+        var vRatio = contxt.canvas.height / img.height;
+        var ratio = Math.min(hRatio, vRatio);
+
+        contxt.strokeStyle = "#FFFFFF";
+        for (var id in featurePoints) {
+          contxt.beginPath();
+          contxt.arc(featurePoints[id].x,
+            featurePoints[id].y, 2, 0, 2 * Math.PI);
+          contxt.stroke();
+
+        }
       }
 
 
