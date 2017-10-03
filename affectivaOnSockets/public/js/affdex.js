@@ -253,7 +253,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
     self.videoElement = document.createElement("video");
     self.videoElement.id = "face_video";
     self.videoElement.autoplay = true;
-    //docElement.appendChild(self.videoElement);
+    docElement.appendChild(self.videoElement);
     //docElement.appendChild(self.imageElement);
     startTimeStamp = (new Date()).getTime() / 1000;
     canvasElement = document.createElement("canvas");
@@ -278,7 +278,9 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   };
 
   var captureImage = function() {
+    console.log("captureImage");
     if (self.isWorkerInitialized && canvasElement) {
+      console.log("captureImage");
       canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
       //canvasContext.drawImage(self.videoElement, 0, 0, width, height);
       canvasContext.drawImage(self.imageElement, 0, 0, width, height);
@@ -289,7 +291,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   };
 
   self.onWebcamReady = function(stream) {
-      cameraStream = stream;
+     /* cameraStream = stream;
       self.videoElement.addEventListener("canplay", function() {
       self.videoElement.play();
     });
@@ -303,7 +305,11 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
     self.videoElement.addEventListener("playing", playingFn);
     self.videoElement.src = window.URL.createObjectURL(stream);
 
-    self.getCallback("onWebcamConnect", true)();
+    self.getCallback("onWebcamConnect", true)();*/
+     
+     console.log("onWebcamReady");
+     affdex.Detector.prototype.start.apply(self);
+     self.getCallback("onWebcamConnect", true)();
   };
 
   var require = function(rootDiv, file, success_callback, failure_callback) {
@@ -335,11 +341,13 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   };
 
   self.start = function() {
+    console.log("self.start");
     if(!self.isRunning) {
       ctor();
       var url = affdex.getAffdexDotJsLocation() + adapterJSVersion;
       require(docElement, url, function() {
-        self._startCamera();
+        //self._startCamera();
+        self._onWebcamReady();
       },
       function() {
         self.getCallback("onInitialize", false)("Unable to load adaptor.js to load the camera");
@@ -349,6 +357,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
 
   self.onInitialize = function(status)  {
     //Call parent function
+    console.log("onInitialize");
     affdex.Detector.prototype.onInitialize.call(self, status);
     if (status) {
       captureImage();
@@ -356,6 +365,7 @@ affdex.CameraDetector = function(element, imgW, imgH, faceMode) {
   };
 
   self.onImageResults = function(status, data) {
+    console.log("onImageResults");
     captureImage();
     affdex.Detector.prototype.onImageResults.call(self, status, data);
   };
