@@ -68,6 +68,9 @@ detector.detectEmotions.joy = true;
 // Detect person's gender
 detector.detectAppearance.gender = true;
 
+detector.width = 640;
+detector.height = 480;
+
 detector.detectAllExpressions();
 detector.detectAllEmotions();
 detector.detectAllEmojis();
@@ -114,7 +117,7 @@ function captureImage(){
 
 	//Get delta time between the first frame and the current frame.
 	var deltaTime = now - startTimestamp;
-
+	console.log("deltaTime " + deltaTime);
 	//Process the frame
 	detector.process(imageData, deltaTime);
 }
