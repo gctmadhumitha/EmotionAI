@@ -94,8 +94,8 @@ function captureImage(){
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	var img = document.getElementById('stream');
-	// canvas.width = img.width;
-	// canvas.height = img.height;
+	 canvas.width = img.width;
+	 canvas.height = img.height;
 	 context.drawImage(img, 0, 0 );
 	//var myData = context.getImageData(0, 0, img.width, img.height);
 
@@ -104,7 +104,7 @@ function captureImage(){
 	var startTimestamp = (new Date()).getTime() / 1000;
 
 	//Get imageData object.
-	var imageData = context.getImageData(0, 0, 640, 480);
+	var imageData = context.getImageData(0, 0, img.width, img.height);
 
 	//Get current time in seconds
 	var now = (new Date()).getTime() / 1000;
