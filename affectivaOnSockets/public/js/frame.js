@@ -87,11 +87,15 @@ detector.detectAllAppearance();
 function captureImage(){
 	console.log("captureImage");
 	//Get a canvas element from DOM
-	var aCanvas = document.getElementById("canvas");
-	var context = aCanvas.getContext('2d');
 
-	var img = document.getElementById("stream");
-    context.drawImage(img, 0, 0);
+	var canvas = document.createElement('canvas');
+	var context = canvas.getContext('2d');
+	var img = document.getElementById('stream');
+	// canvas.width = img.width;
+	// canvas.height = img.height;
+	 context.drawImage(img, 0, 0 );
+	//var myData = context.getImageData(0, 0, img.width, img.height);
+
 
 	//Cache the timestamp of the first frame processed
 	var startTimestamp = (new Date()).getTime() / 1000;
