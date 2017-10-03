@@ -8,9 +8,18 @@ var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
 
 //Construct a FrameDetector and specify the image width / height and face detector mode.
 var detector = new affdex.FrameDetector(faceMode);
+//Add a callback to notify when the detector is initialized and ready for runing.
+      detector.addEventListener("onInitializeSuccess", function() {
+        log('#logs', "The detector reports initialized");
+        //Display canvas instead of video feed because we want to draw the feature points on it
+        $("#face_video_canvas").css("display", "block");
+        $("#face_video").css("display", "none");
+      });
 
-detector.addEventListener("onInitializeSuccess", function() {});
-detector.addEventListener("onInitializeFailure", function() {});
+      detector.addEventListener("onInitializeFailure", function() {
+        log('#logs', "The detector reports initialization failed");
+       
+      });
 
 /* 
   onImageResults success is called when a frame is processed successfully and receives 3 parameters:
