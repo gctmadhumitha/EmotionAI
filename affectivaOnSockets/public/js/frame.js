@@ -20,7 +20,7 @@ detector.addEventListener("onInitializeFailure", function() {});
   - image: An imageData object containing the pixel values for the processed frame.
   - timestamp: The timestamp of the captured image in seconds.
 */
-detector.addEventListener("onImageResultsSuccess", function (faces, image, timestamp) {});
+//detector.addEventListener("onImageResultsSuccess", function (faces, image, timestamp) {});
 
 /* 
   onImageResults success receives 3 parameters:
