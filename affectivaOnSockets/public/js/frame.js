@@ -123,4 +123,8 @@ function process(){
 
       };
 
+       function log(node_name, msg) {
+        $(node_name).append("<span>" + msg + "</span><br />")
+      }
+
 
