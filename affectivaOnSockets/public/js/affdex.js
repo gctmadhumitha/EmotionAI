@@ -195,7 +195,7 @@ affdex.Detector = function() {
 affdex.Detector.prototype.start = function() {
   if (!this.isRunning) {
     var url = affdex.getAffdexDotJsLocation();
-    url = "https://download.affectiva.com/js/3.2/affdex.js";
+    url = "https://download.affectiva.com/js/3.2/affdex.js/";
     XHRWorker(url+"affdex-worker.js", function(worker) {
       this.worker = worker;
       this.worker.onmessage = this.onWorkerMessage;
