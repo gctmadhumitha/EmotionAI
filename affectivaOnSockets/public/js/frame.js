@@ -33,6 +33,8 @@ detector.addEventListener("onImageResultsFailure", function (image, timestamp, e
 	console.log("onImageResultsFailure");
 	var c = document.getElementById("resultCanvas");
 	var ctx = c.getContext("2d");	
+	console.log("timestamp is "+ timestamp);
+	console.log("err_detail " + err_detail);
 	ctx.putImageData(image, 10, 70);
 });
 
