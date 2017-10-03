@@ -37,7 +37,10 @@
     $('#stream').attr('src', url);
     $('.start').hide();
     console.log("liveStream " + url);
-    captureImage()
+    if(isDetectorInitialized){
+      captureImage();
+    }
+    
   });
  
   function startStream() {

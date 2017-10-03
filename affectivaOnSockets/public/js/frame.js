@@ -5,11 +5,12 @@
    affdex.FaceDetectorMode.SMALL_FACES=Faces occupying small portions of the frame
 */
 var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
-
+var isDetectorInitialized = false;
 //Construct a FrameDetector and specify the image width / height and face detector mode.
 var detector = new affdex.FrameDetector(faceMode);
 //Add a callback to notify when the detector is initialized and ready for runing.
       detector.addEventListener("onInitializeSuccess", function() {
+      	isDetectorInitialized = true;
         log('#logs', "The detector reports initialized");
         console.log("onInitializeSuccess");
         //Display canvas instead of video feed because we want to draw the feature points on it
@@ -19,6 +20,7 @@ var detector = new affdex.FrameDetector(faceMode);
       });
 
       detector.addEventListener("onInitializeFailure", function() {
+      	isDetectorInitialized = false;
         log('#logs', "The detector reports initialization failed");
         console.log("onInitializeFailure");
       });
@@ -42,11 +44,8 @@ var detector = new affdex.FrameDetector(faceMode);
 detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {
 
 	console.log("onImageResultsFailure");
-	var c = document.getElementById("resultCanvas");
-	var ctx = c.getContext("2d");	
 	console.log("timestamp is "+ timestamp);
 	console.log("err_detail " + err_detail);
-	ctx.putImageData(image, 10, 70);
 });
 
 detector.addEventListener("onResetSuccess", function() {});
