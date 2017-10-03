@@ -11,7 +11,7 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
  
   <style type="text/css">
-  .stream {
+  #stream {
     height: 99%;
     margin: 0px auto;
     display: block;
@@ -27,7 +27,8 @@
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
-    $('.stream').attr('src', url);
+    $('#stream').attr('src', url);
+    console.log("liveStream " + url);
     $('.start').hide();
   });
  
@@ -48,8 +49,7 @@
   <button type="button" id="" class="btn btn-info start" onclick="startStream()">Start Camera</button>
  
   <div class="row">
-    <video autoplay src="" class="stream"></video>
-    <img  src="" class="stream"></img>
+    <img  src="" id="stream"></img>
   </div>
  
 </body>
