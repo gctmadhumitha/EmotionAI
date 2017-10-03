@@ -9,22 +9,22 @@ var isDetectorInitialized = false;
 //Construct a FrameDetector and specify the image width / height and face detector mode.
 var detector = new affdex.FrameDetector(faceMode);
 //Add a callback to notify when the detector is initialized and ready for runing.
-      detector.addEventListener("onInitializeSuccess", function() {
-      	isDetectorInitialized = true;
-        log('#logs', "The detector reports initialized");
-        console.log("onInitializeSuccess");
-        //Display canvas instead of video feed because we want to draw the feature points on it
-        //$("#face_video_canvas").css("display", "block");
-        //$("#face_video").css("display", "none");
-        startTimestamp = (new Date()).getTime() / 1000;
-        captureImage();
-      });
+detector.addEventListener("onInitializeSuccess", function() {
+	isDetectorInitialized = true;
+log('#logs', "The detector reports initialized");
+console.log("onInitializeSuccess");
+//Display canvas instead of video feed because we want to draw the feature points on it
+//$("#face_video_canvas").css("display", "block");
+//$("#face_video").css("display", "none");
+startTimestamp = (new Date()).getTime() / 1000;
+//captureImage();
+});
 
-      detector.addEventListener("onInitializeFailure", function() {
-      	isDetectorInitialized = false;
-        log('#logs', "The detector reports initialization failed");
-        console.log("onInitializeFailure");
-      });
+detector.addEventListener("onInitializeFailure", function() {
+	isDetectorInitialized = false;
+log('#logs', "The detector reports initialization failed");
+console.log("onInitializeFailure");
+});
 
 /* 
   onImageResults success is called when a frame is processed successfully and receives 3 parameters:
@@ -142,7 +142,7 @@ function captureImageData(imageData){
       //The faces object contains the list of the faces detected in an image.
       //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
       detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
-      	console.log("onImageResultsSuccess");
+      	console.log("onImageResultsSuccess" + timestamp);
         $('#results').html("");
         log('#results', "Timestamp: " + timestamp.toFixed(2));
         log('#results', "Number of faces found: " + faces.length);
