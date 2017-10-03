@@ -14,8 +14,9 @@ var detector = new affdex.FrameDetector(faceMode);
         log('#logs', "The detector reports initialized");
         console.log("onInitializeSuccess");
         //Display canvas instead of video feed because we want to draw the feature points on it
-        $("#face_video_canvas").css("display", "block");
-        $("#face_video").css("display", "none");
+        //$("#face_video_canvas").css("display", "block");
+        //$("#face_video").css("display", "none");
+        startTimestamp = (new Date()).getTime() / 1000;
         captureImage();
       });
 
@@ -72,6 +73,9 @@ detector.detectAllEmotions();
 detector.detectAllEmojis();
 detector.detectAllAppearance();
 
+//Cache the timestamp of the first frame processed
+var startTimestamp = (new Date()).getTime() / 1000;
+
  //function executes when Start button is pushed.
   function startDetector() {
   	console.log("startDetector");
@@ -100,8 +104,7 @@ function captureImage(){
 	//var myData = context.getImageData(0, 0, img.width, img.height);
 
 
-	//Cache the timestamp of the first frame processed
-	var startTimestamp = (new Date()).getTime() / 1000;
+	
 
 	//Get imageData object.
 	var imageData = context.getImageData(0, 0, img.width, img.height);
