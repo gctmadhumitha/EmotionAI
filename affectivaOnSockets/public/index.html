@@ -11,11 +11,12 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
  
   <style type="text/css">
-  /*#stream {
-    height: 50%;
-    margin: 50px;
+  #stream {
+    height: 99%;
+    margin: 0px auto;
     display: block;
-  }*/
+    margin-top: 20px;
+  }
   </style>
  
   <!-- jQuery -->
@@ -23,36 +24,18 @@
   <!-- Bootstrap JavaScript -->
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
- 
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
-    console.log("liveStream connected");
     $('#stream').attr('src', url);
     $('.start').hide();
-    // var c = document.getElementById("canvas");
-    // var ctx = c.getContext("2d");
-    // var img = document.getElementById("stream");
-    // ctx.drawImage(img, 10, 10);
   });
  
   function startStream() {
-    console.log("startStream");
     socket.emit('start-stream');
     $('.start').hide();
-    // var c = document.getElementById("canvas");
-    // var ctx = c.getContext("2d");
-    // var img = document.getElementById("stream");
-    // ctx.drawImage(img, 10, 10);
-    //startDetector();
   }
-
   </script>
-
-
-
 </head>
  
 <body class="container">
@@ -64,106 +47,10 @@
  
   <button type="button" id="" class="btn btn-info start" onclick="startStream()">Start Camera</button>
  
-
-
-  <canvas id ="resultCanvas" src="" width="640" height="480" ></canvas>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8" style="width:680px;height:480px;">
-        <img src="" id="stream"> 
-        <canvas id="canvas" width="640" height="480" style="border:1px solid #d3d3d3;">
-      </div>
-      <div class="col-md-4">
-        <div style="height:25em;">
-          <strong>EMOTION TRACKING RESULTS</strong>
-          <div id="results" style="word-wrap:break-word;"></div>
-        </div>
-        <div>
-          <strong>DETECTOR LOG MSGS</strong>
-        </div>
-        <div id="logs"></div>
-      </div>
-    </div>
-   
-
-   <!--  <div>
-      <button id="start" onclick="onStart()">Start</button>
-      <button id="stop" onclick="onStop()">Stop</button>
-      <button id="reset" onclick="onReset()">Reset</button>
-      <h3>Affectiva JS SDK CameraDetector to track different emotions.</h3>
-      <p>
-        <strong>Instructions</strong>
-        </br>
-        Press the start button to start the detector.
-        <br/> When a face is detected, the probabilities of the different emotions are written to the DOM.
-        <br/> Press the stop button to end the detector.
-      </p>
-    </div> -->
+  <div class="row">
+    <img src="" id="stream">
   </div>
-  
-<script src="https://download.affectiva.com/js/3.1/affdex.js"></script>
-  <script>
-    var width = 640;
-    var height = 480;
-
-    var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
-    var detector = new affdex.FrameDetector(faceMode);
-
-  detector.addEventListener("onInitializeSuccess", function() {
-    console.log('Detector reports initialized.');
-
-    // Start with first capture...
-    captureImage();
-  });
-
-  detector.addEventListener("onImageResultsSuccess", function (faces, image, timestamp) {
-    console.log( faces );
-    captureImage();
-  });
-
-  detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {
-    console.log( err_detail );
-    captureImage();
-  });
-
-  detector.detectAllExpressions();
-  detector.detectAllEmotions();
-  detector.detectAllEmojis();
-  detector.detectAllAppearance();
-
-  detector.start();
-
-  var v = document.getElementById('stream');
-  var c = document.getElementById('canvas');
-  var t = c.getContext('2d');
-  c.width = width;
-  c.height = height;  
-
-  
-  // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||  
-  //   navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-  // if (navigator.getUserMedia) {       
-  //     navigator.getUserMedia({video: true}, handleVideo, videoError);
-  // }
-  // function handleVideo(stream) { v.src = window.URL.createObjectURL(stream); }
-  // function videoError(e) { console.log( e ); }
-
-  function captureImage() {
-    console.log('Capturing...');
-    t.clearRect( 0, 0, c.width, c.height );
-    t.drawImage( v, 0, 0, width, height );
-    var imgData = t.getImageData(0, 0, c.width, c.height);
-    var currentTimeStamp = ( new Date() ).getTime() / 1000;
-    //detector.process( imgData, currentTimeStamp );
-  }
-</script>
-
-
-
-
-
-
+ 
 </body>
  
 </html>
