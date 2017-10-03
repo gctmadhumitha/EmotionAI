@@ -31,6 +31,9 @@ detector.addEventListener("onInitializeFailure", function() {});
 detector.addEventListener("onImageResultsFailure", function (image, timestamp, err_detail) {
 
 	console.log("onImageResultsFailure");
+	var c = document.getElementById("resultCanvas");
+	var ctx = c.getContext("2d");	
+	ctx.putImageData(image, 10, 70);
 });
 
 detector.addEventListener("onResetSuccess", function() {});
