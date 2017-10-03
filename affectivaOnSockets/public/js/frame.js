@@ -122,6 +122,22 @@ function captureImage(){
 	detector.process(imageData, deltaTime);
 }
 
+function captureImageData(imageData){
+	
+	
+	//Get current time in seconds
+	var now = (new Date()).getTime() / 1000;
+
+	//Get delta time between the first frame and the current frame.
+	var deltaTime = now - startTimestamp;
+	console.log("deltaTime " + deltaTime);
+	//Process the frame
+	detector.process(imageData, deltaTime);
+}
+
+
+
+
 //Add a callback to receive the results from processing an image.
       //The faces object contains the list of the faces detected in an image.
       //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
