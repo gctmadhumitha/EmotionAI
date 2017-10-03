@@ -29,11 +29,13 @@
   <script>
   var socket = io();
   socket.on('liveStream', function(url) {
+    console.log("liveStream");
     $('#stream').attr('src', url);
     $('.start').hide();
   });
  
   function startStream() {
+    console.log("startStream");
     socket.emit('start-stream');
     $('.start').hide();
     // var c = document.getElementById("canvas");
