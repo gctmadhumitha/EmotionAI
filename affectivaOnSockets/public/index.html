@@ -73,7 +73,7 @@
     //$("#face_video_canvas").css("display", "block");
     //$("#face_video").css("display", "none");
     startTimestamp = (new Date()).getTime() / 1000;
-    //captureImage();
+    captureImage();
   });
 
   detector.addEventListener("onInitializeFailure", function() {
@@ -158,28 +158,37 @@
    }
 
 
-  function captureImage(context, img){
-    console.log("captureImage");
-    //Get a canvas element from DOM
-    
-     context.drawImage(img, 0, 0 );
-    //var myData = context.getImageData(0, 0, img.width, img.height);
+  function captureImage(){
 
-    //Get imageData object.
-    var imageData = context.getImageData(0, 0, img.width, img.height);
+     while(detector && detector.isRunning) {
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      var img = document.getElementById('stream');
+      canvas.width = img.width;
+      canvas.height = img.height;
+        
+      console.log("captureImage");
+      //Get a canvas element from DOM
+      
+       context.drawImage(img, 0, 0 );
+      //var myData = context.getImageData(0, 0, img.width, img.height);
 
-    //Get current time in seconds
-    var now = (new Date()).getTime() / 1000;
+      //Get imageData object.
+      var imageData = context.getImageData(0, 0, img.width, img.height);
 
-    //Get delta time between the first frame and the current frame.
-    var deltaTime = now - startTimestamp;
-    console.log("deltaTime " + deltaTime);
-    //Process the frame
-    detector.process(imageData, deltaTime);
+      //Get current time in seconds
+      var now = (new Date()).getTime() / 1000;
 
-    // var c = document.getElementById("resultCanvas");
-    // var ctx = c.getContext("2d");  
-    // ctx.putImageData(imageData, 10, 70);
+      //Get delta time between the first frame and the current frame.
+      var deltaTime = now - startTimestamp;
+      console.log("deltaTime " + deltaTime);
+      //Process the frame
+      detector.process(imageData, deltaTime);
+
+      // var c = document.getElementById("resultCanvas");
+      // var ctx = c.getContext("2d");  
+      // ctx.putImageData(imageData, 10, 70);
+    }
   }
 
   function captureImageData(imageData){
@@ -232,11 +241,25 @@
     $('.start').hide();
   }
 
+  function stopStream(){
+    stopDetector();
+
+  }
+
+  function stopDetector() {
+  console.log("Clicked the stop button");
+  if (detector && detector.isRunning) {
+    detector.removeEventListener();
+    detector.stop();
+  }
+};
+
   </script>
 </head>
  
 <body class="container">
   <button type="button" id="" class="btn btn-info start" onclick="startStream()">Start Camera</button>
+  <button type="button" id="" class="btn btn-info start" onclick="stopStream()">Stop Camera</button>
   <div class="row">
     <img  src="" id="stream"></img>
   </div>
