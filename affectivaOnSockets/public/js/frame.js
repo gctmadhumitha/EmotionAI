@@ -141,9 +141,9 @@ function captureImage(context, img){
 	//Process the frame
 	detector.process(imageData, deltaTime);
 
-	var c = document.getElementById("resultCanvas");
-	var ctx = c.getContext("2d");	
-	ctx.putImageData(imageData, 10, 70);
+	// var c = document.getElementById("resultCanvas");
+	// var ctx = c.getContext("2d");	
+	// ctx.putImageData(imageData, 10, 70);
 }
 
 function captureImageData(imageData){
