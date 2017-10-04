@@ -198,6 +198,10 @@
 
   }
 
+  function log(node_name, msg) {
+   $(node_name).append("<span>" + msg + "</span><br />")
+  }
+
 
   var socket = io();
   socket.on('liveStream', function(url) {
