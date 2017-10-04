@@ -38,7 +38,12 @@
     $('.start').hide();
     console.log("liveStream " + url);
     if(isDetectorInitialized){
-      captureImage();
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      var img = document.getElementById('stream');
+       canvas.width = img.width;
+       canvas.height = img.height;
+      captureImage(context, img);
       //var base64 = getBase64Image(document.getElementById("stream"));
       //captureImageData(base64);
     }

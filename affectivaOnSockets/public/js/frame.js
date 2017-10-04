@@ -6,24 +6,45 @@
 */
 var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
 var isDetectorInitialized = false;
+//Cache the timestamp of the first frame processed
+var startTimestamp = (new Date()).getTime() / 1000;
 //Construct a FrameDetector and specify the image width / height and face detector mode.
 var detector = new affdex.FrameDetector(faceMode);
+
+// Track smiles
+detector.detectExpressions.smile = true;
+
+// Track joy emotion
+detector.detectEmotions.joy = true;
+
+// Detect person's gender
+detector.detectAppearance.gender = true;
+
+detector.width = 640;
+detector.height = 480;
+
+detector.detectAllExpressions();
+detector.detectAllEmotions();
+detector.detectAllEmojis();
+detector.detectAllAppearance();
+
+
 //Add a callback to notify when the detector is initialized and ready for runing.
 detector.addEventListener("onInitializeSuccess", function() {
 	isDetectorInitialized = true;
-log('#logs', "The detector reports initialized");
-console.log("onInitializeSuccess");
-//Display canvas instead of video feed because we want to draw the feature points on it
-//$("#face_video_canvas").css("display", "block");
-//$("#face_video").css("display", "none");
-startTimestamp = (new Date()).getTime() / 1000;
-//captureImage();
+	log('#logs', "The detector reports initialized");
+	console.log("onInitializeSuccess");
+	//Display canvas instead of video feed because we want to draw the feature points on it
+	//$("#face_video_canvas").css("display", "block");
+	//$("#face_video").css("display", "none");
+	startTimestamp = (new Date()).getTime() / 1000;
+	//captureImage();
 });
 
 detector.addEventListener("onInitializeFailure", function() {
 	isDetectorInitialized = false;
-log('#logs', "The detector reports initialization failed");
-console.log("onInitializeFailure");
+	log('#logs', "The detector reports initialization failed");
+	console.log("onInitializeFailure");
 });
 
 /* 
@@ -53,34 +74,40 @@ detector.addEventListener("onImageResultsFailure", function (image, timestamp, e
 	ctx.putImageData(image, 10, 70);
 });
 
+
+//Add a callback to receive the results from processing an image.
+//The faces object contains the list of the faces detected in an image.
+//Faces object contains probabilities for all the different expressions, emotions and appearance metrics
+detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
+	console.log("onImageResultsSuccess" + timestamp);
+	$('#results').html("");
+	log('#results', "Timestamp: " + timestamp.toFixed(2));
+	log('#results', "Number of faces found: " + faces.length);
+	if (faces.length > 0) {
+	  log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
+	  log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
+	    return val.toFixed ? Number(val.toFixed(0)) : val;
+	  }));
+	  log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
+	    return val.toFixed ? Number(val.toFixed(0)) : val;
+	  }));
+	  log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
+	  //drawFeaturePoints(image, faces[0].featurePoints);
+
+	 	var c = document.getElementById("resultCanvas");
+		var ctx = c.getContext("2d");	
+		ctx.putImageData(image, 10, 70);
+	}
+});
+
 detector.addEventListener("onResetSuccess", function() {});
 detector.addEventListener("onResetFailure", function() {});
 
 detector.addEventListener("onStopSuccess", function() {});
 detector.addEventListener("onStopFailure", function() {});
 
-// Track smiles
-detector.detectExpressions.smile = true;
-
-// Track joy emotion
-detector.detectEmotions.joy = true;
-
-// Detect person's gender
-detector.detectAppearance.gender = true;
-
-detector.width = 640;
-detector.height = 480;
-
-detector.detectAllExpressions();
-detector.detectAllEmotions();
-detector.detectAllEmojis();
-detector.detectAllAppearance();
-
-//Cache the timestamp of the first frame processed
-var startTimestamp = (new Date()).getTime() / 1000;
-
- //function executes when Start button is pushed.
-  function startDetector() {
+  //function executes when Start button is pushed.
+ function startDetector() {
   	console.log("startDetector");
     if (detector && !detector.isRunning) {
       $("#logs").html("");
@@ -91,23 +118,15 @@ var startTimestamp = (new Date()).getTime() / 1000;
       $("#logs").html("Detector running");
     }
     log('#logs', "Clicked the start button");
-  }
+ }
 
 
-function captureImage(){
+function captureImage(context, img){
 	console.log("captureImage");
 	//Get a canvas element from DOM
-
-	var canvas = document.createElement('canvas');
-	var context = canvas.getContext('2d');
-	var img = document.getElementById('stream');
-	 canvas.width = img.width;
-	 canvas.height = img.height;
+	
 	 context.drawImage(img, 0, 0 );
 	//var myData = context.getImageData(0, 0, img.width, img.height);
-
-
-	
 
 	//Get imageData object.
 	var imageData = context.getImageData(0, 0, img.width, img.height);
@@ -123,8 +142,7 @@ function captureImage(){
 }
 
 function captureImageData(imageData){
-	
-	
+
 	//Get current time in seconds
 	var now = (new Date()).getTime() / 1000;
 
@@ -136,71 +154,43 @@ function captureImageData(imageData){
 }
 
 
+function stopDetector() {
+	console.log("Clicked the stop button");
+	if (detector && detector.isRunning) {
+	  detector.removeEventListener();
+	  detector.stop();
+	}
+};
 
+//function executes when the Reset button is pushed.
+function resetDetector() {
+	console.log("Clicked the reset button");
+	if (detector && detector.isRunning) {
+	  detector.reset();
+	  $('#results').html("");
+	}
+};
 
-//Add a callback to receive the results from processing an image.
-      //The faces object contains the list of the faces detected in an image.
-      //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
-      detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
-      	console.log("onImageResultsSuccess" + timestamp);
-        $('#results').html("");
-        log('#results', "Timestamp: " + timestamp.toFixed(2));
-        log('#results', "Number of faces found: " + faces.length);
-        if (faces.length > 0) {
-          log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
-          log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
-            return val.toFixed ? Number(val.toFixed(0)) : val;
-          }));
-          log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
-            return val.toFixed ? Number(val.toFixed(0)) : val;
-          }));
-          log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
-          //drawFeaturePoints(image, faces[0].featurePoints);
+function log(node_name, msg) {
+	$(node_name).append("<span>" + msg + "</span><br />")
+}
 
-         	var c = document.getElementById("resultCanvas");
-			var ctx = c.getContext("2d");	
-			ctx.putImageData(image, 10, 70);
-        }
-      });
+//Draw the detected facial feature points on the image
+function drawFeaturePoints(img, featurePoints) {
+	var contxt = $('#face_video_canvas')[0].getContext('2d');
 
-      function stopDetector() {
-        console.log("Clicked the stop button");
-        if (detector && detector.isRunning) {
-          detector.removeEventListener();
-          detector.stop();
-        }
-      };
+	var hRatio = contxt.canvas.width / img.width;
+	var vRatio = contxt.canvas.height / img.height;
+	var ratio = Math.min(hRatio, vRatio);
 
-      //function executes when the Reset button is pushed.
-      function resetDetector() {
-        console.log("Clicked the reset button");
-        if (detector && detector.isRunning) {
-          detector.reset();
-          $('#results').html("");
-        }
+	contxt.strokeStyle = "#FFFFFF";
+	for (var id in featurePoints) {
+	  contxt.beginPath();
+	  contxt.arc(featurePoints[id].x,
+	    featurePoints[id].y, 2, 0, 2 * Math.PI);
+	  contxt.stroke();
 
-      };
-
-       function log(node_name, msg) {
-        $(node_name).append("<span>" + msg + "</span><br />")
-      }
-
-       //Draw the detected facial feature points on the image
-      function drawFeaturePoints(img, featurePoints) {
-        var contxt = $('#face_video_canvas')[0].getContext('2d');
-
-        var hRatio = contxt.canvas.width / img.width;
-        var vRatio = contxt.canvas.height / img.height;
-        var ratio = Math.min(hRatio, vRatio);
-
-        contxt.strokeStyle = "#FFFFFF";
-        for (var id in featurePoints) {
-          contxt.beginPath();
-          contxt.arc(featurePoints[id].x,
-            featurePoints[id].y, 2, 0, 2 * Math.PI);
-          contxt.stroke();
-
-        }
-      }
+	}
+}
 
 
