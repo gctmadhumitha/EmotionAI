@@ -191,10 +191,7 @@
       // var ctx = c.getContext("2d");  
       // ctx.putImageData(imageData, 10, 70);
     }
-    $("#stream").load(function(){
-       console.log("New Image loaded");
-       captureImage()
-    });
+  
   }
 
   function captureImageData(imageData){
@@ -228,16 +225,18 @@
     $('.start').hide();
     console.log("liveStream " + url);
     if(isDetectorInitialized){
-      /*var canvas = document.createElement('canvas');
+      var canvas = document.createElement('canvas');
       var context = canvas.getContext('2d');
       var img = document.getElementById('stream');
       canvas.width = img.width;
       canvas.height = img.height;
       context.drawImage(img, 0, 0 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
-      captureImageData(imageData);*/
+      //captureImageData(imageData);
       //captureImage();
-      
+       var c = document.getElementById("resultCanvas");
+       var ctx = c.getContext("2d"); 
+      ctx.putImageData(imageData, 10, 70);
     }
     
   });
