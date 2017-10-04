@@ -158,18 +158,18 @@
    }
 
 
-   var c1 = document.createElement('canvas');
-   var con1 = c1.getContext('2d');
-   var stream = document.getElementById('stream');
-   c1.width = stream.width;
-   c1.height = stream.height;
+  
 
   function captureImage(){
 
      if(detector && detector.isRunning) {
-      
-      
-        
+
+       var c1 = document.createElement('canvas');
+       var con1 = c1.getContext('2d');
+       var stream = document.getElementById('stream');
+       c1.width = stream.width;
+       c1.height = stream.height;
+   
       console.log("captureImage");
       //Get a canvas element from DOM
       
@@ -213,7 +213,7 @@
   }
 
   function log(node_name, msg) {
-   $(node_name).append("<span>" + msg + "</span><br />")
+   $(node_name).append("<span>" + msg + "</span><br />");
   }
 
 
