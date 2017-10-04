@@ -80,6 +80,9 @@ detector.addEventListener("onImageResultsFailure", function (image, timestamp, e
 //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
 detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
 	console.log("onImageResultsSuccess" + timestamp);
+	var c = document.getElementById("resultCanvas");
+	var ctx = c.getContext("2d");	
+	ctx.putImageData(image, 10, 70);
 	$('#results').html("");
 	log('#results', "Timestamp: " + timestamp.toFixed(2));
 	log('#results', "Number of faces found: " + faces.length);
@@ -94,9 +97,7 @@ detector.addEventListener("onImageResultsSuccess", function(faces, image, timest
 	  log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
 	  //drawFeaturePoints(image, faces[0].featurePoints);
 
-	 	var c = document.getElementById("resultCanvas");
-		var ctx = c.getContext("2d");	
-		ctx.putImageData(image, 10, 70);
+	 	
 	}
 });
 
