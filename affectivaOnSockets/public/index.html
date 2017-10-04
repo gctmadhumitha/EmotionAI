@@ -230,14 +230,15 @@
       var img = document.getElementById('stream');
       canvas.width = img.width;
       canvas.height = img.height;
-      context.drawImage(img, 0, 0 );
+      context.clearRect(0, 0, img.width, img.height);
+      context.drawImage(img, 0, 0, 640, 480 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
       //captureImageData(imageData);
-      //captureImage();
-       var c = document.getElementById("resultCanvas");
-       var ctx = c.getContext("2d"); 
-      ctx.putImageData(imageData, 10, 70);
-    }
+      captureImage();
+    //    var c = document.getElementById("resultCanvas");
+    //    var ctx = c.getContext("2d"); 
+    //   ctx.putImageData(imageData, 10, 70);
+     }
     
   });
  
