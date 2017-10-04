@@ -148,6 +148,10 @@ function captureImage(context, img){
 
 function captureImageData(imageData){
 
+	var c = document.getElementById("resultCanvas");
+    var ctx = c.getContext("2d");	
+	ctx.putImageData(imageData, 10, 70);
+
 	//Get current time in seconds
 	var now = (new Date()).getTime() / 1000;
 
@@ -156,6 +160,7 @@ function captureImageData(imageData){
 	console.log("deltaTime " + deltaTime);
 	//Process the frame
 	detector.process(imageData, deltaTime);
+
 }
 
 
