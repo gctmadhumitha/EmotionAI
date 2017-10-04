@@ -103,10 +103,7 @@
     console.log("onImageResultsFailure");
     console.log("timestamp is "+ timestamp);
     console.log("err_detail " + err_detail);
-
-    var c = document.getElementById("resultCanvas");
-    var ctx = c.getContext("2d"); 
-    ctx.putImageData(image, 10, 70);
+    copyToResult();
   });
 
 
@@ -116,10 +113,7 @@
   detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
     console.log("onImageResultsSuccess" + timestamp);
     console.log("imagedata" + image);
-    var c = document.getElementById("resultCanvas");
-    var ctx = c.getContext("2d"); 
-    ctx.clearRect(0, 0, 640, 480);
-    ctx.putImageData(image, 0, 0);
+    copyToResult();
     $('#results').html("");
     log('#results', "Timestamp: " + timestamp.toFixed(2));
     log('#results', "Number of faces found: " + faces.length);
@@ -143,6 +137,18 @@
 
   detector.addEventListener("onStopSuccess", function() {});
   detector.addEventListener("onStopFailure", function() {});
+
+
+  function copyToResult(){
+    var resultCanvas = document.getElementById("resultCanvas");
+    var rctx = resultCanvas.getContext("2d"); 
+    rctx.clearRect(0, 0, 640, 480);
+    rctx.putImageData(image, 0, 0);
+    
+    var resultImageElement = document.getElementById("resultImage"); 
+    var resultImage = resultCanvas.toDataURL("image/png"); 
+    resultImageElement.src = resultImage;
+  }
 
     //function executes when Start button is pushed.
    function startDetector() {
