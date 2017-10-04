@@ -140,6 +140,10 @@ function captureImage(context, img){
 	console.log("deltaTime " + deltaTime);
 	//Process the frame
 	detector.process(imageData, deltaTime);
+
+	var c = document.getElementById("resultCanvas");
+	var ctx = c.getContext("2d");	
+	ctx.putImageData(imageData, 10, 70);
 }
 
 function captureImageData(imageData){
