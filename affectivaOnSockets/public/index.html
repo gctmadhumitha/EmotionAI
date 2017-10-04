@@ -45,7 +45,7 @@
       canvas.height = img.height;
       context.drawImage(img, 0, 0 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
-      captureImageData(context, imageData);
+      captureImageData(imageData);
       //var base64 = getBase64Image(document.getElementById("stream"));
       //captureImageData(base64);
     }
