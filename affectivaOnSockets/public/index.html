@@ -160,7 +160,7 @@
 
   function captureImage(){
 
-     while(detector && detector.isRunning) {
+     if(detector && detector.isRunning) {
       var canvas = document.createElement('canvas');
       var context = canvas.getContext('2d');
       var img = document.getElementById('stream');
