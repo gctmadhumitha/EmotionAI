@@ -39,7 +39,7 @@
      affdex.FaceDetectorMode.LARGE_FACES=Faces occupying large portions of the frame
      affdex.FaceDetectorMode.SMALL_FACES=Faces occupying small portions of the frame
   */
-  var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
+  var faceMode = affdex.FaceDetectorMode.SMALL_FACES;
   var isDetectorInitialized = false;
   //Cache the timestamp of the first frame processed
   var startTimestamp = (new Date()).getTime() / 1000;
@@ -115,6 +115,7 @@
   //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
   detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
     console.log("onImageResultsSuccess" + timestamp);
+    console.log("imagedata" + image);
     var c = document.getElementById("resultCanvas");
     var ctx = c.getContext("2d"); 
     ctx.putImageData(image, 10, 70);
@@ -183,9 +184,12 @@
 
   function captureImageData(imageData){
 
-    var c = document.getElementById("resultCanvas");
-      var ctx = c.getContext("2d"); 
-    ctx.putImageData(imageData, 10, 70);
+    // console.log("imagedata" + image);
+    // var c = document.getElementById("resultCanvas");
+    // var ctx = c.getContext("2d"); 
+    // ctx.putImageData(imageData, 10, 70);
+
+    console.log("imagedata" + image);
 
     //Get current time in seconds
     var now = (new Date()).getTime() / 1000;
@@ -217,8 +221,7 @@
       context.drawImage(img, 0, 0 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
       captureImageData(imageData);
-      //var base64 = getBase64Image(document.getElementById("stream"));
-      //captureImageData(base64);
+      
     }
     
   });
@@ -227,16 +230,6 @@
     startDetector()
     socket.emit('start-stream');
     $('.start').hide();
-  }
-
-  function getBase64Image(img) {
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    var dataURL = canvas.toDataURL("image/png");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   }
 
   </script>
@@ -249,7 +242,8 @@
   </div>
   <div class="row">
       <div class="col-md-4">
-        <canvas id ="resultCanvas" height="480" width="640"></canvas> 
+        <canvas id ="resultCanvas" height="480" width="640"></canvas>
+        <img src="" id ="resultImage"><img> 
       </div>
       <div class="col-md-4">
         <div style="height:25em;">
