@@ -171,7 +171,7 @@
        var stream = document.getElementById('stream');
        c1.width = stream.width;
        c1.height = stream.height;
-
+       con1.clearRect(0, 0, stream.width, stream.height);
       console.log("captureImage");
       //Get a canvas element from DOM
       
@@ -226,14 +226,14 @@
     $('.start').hide();
     console.log("liveStream " + url);
     if(isDetectorInitialized){
-      var canvas = document.createElement('canvas');
-      var context = canvas.getContext('2d');
-      var img = document.getElementById('stream');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      context.clearRect(0, 0, img.width, img.height);
-      context.drawImage(img, 0, 0, 640, 480 );
-      var imageData = context.getImageData(0, 0, img.width, img.height);
+      // var canvas = document.createElement('canvas');
+      // var context = canvas.getContext('2d');
+      // var img = document.getElementById('stream');
+      // canvas.width = img.width;
+      // canvas.height = img.height;
+      // context.clearRect(0, 0, img.width, img.height);
+      // context.drawImage(img, 0, 0, 640, 480 );
+      // var imageData = context.getImageData(0, 0, img.width, img.height);
       //captureImageData(imageData);
       captureImage();
     //    var c = document.getElementById("resultCanvas");
