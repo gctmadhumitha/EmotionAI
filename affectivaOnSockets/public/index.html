@@ -158,23 +158,24 @@
    }
 
 
+   var c1 = document.createElement('canvas');
+   var con1 = c1.getContext('2d');
+   var stream = document.getElementById('stream');
+   c1.width = stream.width;
+   c1.height = stream.height;
+
   function captureImage(){
 
      if(detector && detector.isRunning) {
-      var canvas = document.createElement('canvas');
-      var context = canvas.getContext('2d');
-      var img = document.getElementById('stream');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      
+      
         
       console.log("captureImage");
       //Get a canvas element from DOM
       
-       context.drawImage(img, 0, 0 );
-      //var myData = context.getImageData(0, 0, img.width, img.height);
-
+       con1.drawImage(stream, 0, 0 );
       //Get imageData object.
-      var imageData = context.getImageData(0, 0, img.width, img.height);
+      var imageData = con1.getImageData(0, 0, img.width, img.height);
 
       //Get current time in seconds
       var now = (new Date()).getTime() / 1000;
@@ -198,7 +199,7 @@
     // var ctx = c.getContext("2d"); 
     // ctx.putImageData(imageData, 10, 70);
 
-    console.log("imagedata" + image);
+    console.log("imagedata" + imageData);
 
     //Get current time in seconds
     var now = (new Date()).getTime() / 1000;
@@ -222,14 +223,15 @@
     $('.start').hide();
     console.log("liveStream " + url);
     if(isDetectorInitialized){
-      var canvas = document.createElement('canvas');
+      /*var canvas = document.createElement('canvas');
       var context = canvas.getContext('2d');
       var img = document.getElementById('stream');
       canvas.width = img.width;
       canvas.height = img.height;
       context.drawImage(img, 0, 0 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
-      captureImageData(imageData);
+      captureImageData(imageData);*/
+      captureImage();
       
     }
     
