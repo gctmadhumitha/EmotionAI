@@ -118,7 +118,8 @@
     console.log("imagedata" + image);
     var c = document.getElementById("resultCanvas");
     var ctx = c.getContext("2d"); 
-    ctx.putImageData(image, 10, 70);
+    ctx.clearRect(0, 0, 640, 480;
+    ctx.putImageData(image, 0, 0);
     $('#results').html("");
     log('#results', "Timestamp: " + timestamp.toFixed(2));
     log('#results', "Number of faces found: " + faces.length);
