@@ -175,7 +175,7 @@
       
        con1.drawImage(stream, 0, 0 );
       //Get imageData object.
-      var imageData = con1.getImageData(0, 0, img.width, img.height);
+      var imageData = con1.getImageData(0, 0, stream.width, stream.height);
 
       //Get current time in seconds
       var now = (new Date()).getTime() / 1000;
@@ -231,7 +231,7 @@
       context.drawImage(img, 0, 0 );
       var imageData = context.getImageData(0, 0, img.width, img.height);
       captureImageData(imageData);*/
-      //captureImage();
+      captureImage();
       
     }
     
